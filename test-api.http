@@ -1,0 +1,112 @@
+### Test User Registration
+POST http://localhost:3000/users/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123",
+  "firstName": "Test",
+  "lastName": "User"
+}
+
+### Test Admin Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@ewallet.com",
+  "password": "admin123"
+}
+
+### Test User Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### Test Get All Users (Admin Only)
+GET http://localhost:3000/users
+Authorization: Bearer YOUR_ADMIN_JWT_TOKEN_HERE
+
+### Test Create Admin (Admin Only)
+POST http://localhost:3000/auth/create-admin
+Authorization: Bearer YOUR_ADMIN_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "email": "newadmin@example.com",
+  "password": "admin123",
+  "firstName": "New",
+  "lastName": "Admin"
+}
+
+### Test Logout
+POST http://localhost:3000/auth/logout
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Test Logout All Sessions
+POST http://localhost:3000/auth/logout-all
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Test Get Active Sessions
+GET http://localhost:3000/auth/sessions
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Test Create Deposit Request (User Only)
+POST http://localhost:3000/deposits/request
+Authorization: Bearer YOUR_USER_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "amount": 100.50,
+  "description": "Initial deposit"
+}
+
+### Test Get Pending Deposits (Admin Only)
+GET http://localhost:3000/deposits/pending
+Authorization: Bearer YOUR_ADMIN_JWT_TOKEN_HERE
+
+### Test Approve Deposit (Admin Only)
+POST http://localhost:3000/deposits/approve
+Authorization: Bearer YOUR_ADMIN_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "transactionId": "TRANSACTION_UUID_HERE"
+}
+
+### Test Get User Deposits (User Only)
+GET http://localhost:3000/deposits/my-deposits
+Authorization: Bearer YOUR_USER_JWT_TOKEN_HERE
+
+### Test Get Wallet Balance (User Only)
+GET http://localhost:3000/wallet/balance
+Authorization: Bearer YOUR_USER_JWT_TOKEN_HERE
+
+### Test Transfer to Another User (User Only)
+POST http://localhost:3000/wallet/transfer
+Authorization: Bearer YOUR_USER_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "recipientEmail": "recipient@example.com",
+  "amount": 50.00,
+  "description": "Payment for services"
+}
+
+### Test Pay with Balance (User Only)
+POST http://localhost:3000/wallet/pay
+Authorization: Bearer YOUR_USER_JWT_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "amount": 25.00,
+  "description": "Purchase item"
+}
+
+### Test Get Transaction History (User Only)
+GET http://localhost:3000/wallet/transactions
+Authorization: Bearer YOUR_USER_JWT_TOKEN_HERE
