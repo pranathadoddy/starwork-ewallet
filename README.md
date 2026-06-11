@@ -4,9 +4,9 @@ A secure multi-user digital wallet API built with NestJS and MySQL. This compreh
 
 ## 🚀 Features
 
-### Part 1 - System Design (50 Points)
+### System Design
 
-#### 1. Flowchart Diagrams (20 Points)
+#### Flowchart Diagrams
 
 **a. User Deposit Request & Admin Approval Flow**
 
@@ -78,7 +78,7 @@ flowchart TD
     style Y fill:#e8f5e8
 ```
 
-#### 2. ER Diagram (20 Points)
+#### ER Diagram
 
 Database schema design for users, roles, wallets, and stateful transactions:
 
@@ -133,7 +133,7 @@ erDiagram
     USERS ||--o{ TRANSACTIONS : "receives"
 ```
 
-#### 3. Sequence Diagram (10 Points)
+#### Sequence Diagram
 
 **Deposit Approval Process** - UML Sequence Diagram showing interactions between Admin, API, and Database:
 
@@ -169,89 +169,89 @@ sequenceDiagram
     API-->>Admin: Deposit approved successfully
 ```
 
-### Part 2 - User & Admin Management (50 Points)
+### User & Admin Management
 
-✅ **User Registration (10 Points)**
+✅ **User Registration**
 - Endpoint: `POST /users/register`
 - Password securely hashed using bcryptjs
 - Automatic wallet creation for new users
 
-✅ **Admin Seeding (5 Points)**
+✅ **Admin Seeding**
 - Automatic admin user creation on application startup
 - Default admin credentials: `admin@ewallet.com` / `admin123`
 
-✅ **Role-Based JWTs (15 Points)**
+✅ **Role-Based JWTs**
 - JWT tokens contain user ID and role (USER/ADMIN)
 - Secure token generation and validation
 
-✅ **Endpoint Protection (15 Points)**
+✅ **Endpoint Protection**
 - Role-based middleware for protecting endpoints
 - Some endpoints accessible only by USER role
 - Some endpoints accessible only by ADMIN role
 
-✅ **HTTP Status Codes (5 Points)**
+✅ **HTTP Status Codes**
 - Proper HTTP status codes for all responses
 - 201 for successful creation
 - 401 for unauthorized access
 - 403 for forbidden access
 - 409 for conflicts
 
-### Part 3 - Login & Session Management (50 Points)
+### Login & Session Management
 
-✅ **Login API (15 Points)**
+✅ **Login API**
 - Endpoint: `POST /auth/login`
 - Accepts user credentials and returns role-based JWT
 - Device and IP tracking for session management
 
-✅ **Success Response (10 Points)**
+✅ **Success Response**
 - Returns user data (excluding password) and generated token
 - Proper response structure with user information
 
-✅ **Error Response (10 Points)**
+✅ **Error Response**
 - Appropriate error messages for failed login attempts
 - Proper HTTP status codes (401 for invalid credentials)
 
-✅ **Single Sign-On (SSO) (15 Points)**
+✅ **Single Sign-On (SSO)**
 - Single-session policy implementation
 - New login invalidates previous sessions
 - Session tracking and management
 - Logout functionality for current and all sessions
 
-### Part 4 - Deposit Workflow (50 Points)
+### Deposit Workflow
 
-✅ **User: Request Deposit (15 Points)**
+✅ **User: Request Deposit**
 - Endpoint: `POST /deposits/request`
 - USER-protected endpoint for deposit requests
 - Creates transaction record with PENDING status
 - Does NOT immediately update wallet balance
 
-✅ **Admin: List Pending Deposits (10 Points)**
+✅ **Admin: List Pending Deposits**
 - Endpoint: `GET /deposits/pending`
 - ADMIN-protected endpoint to list all pending deposits
 - Returns detailed deposit information with user data
 
-✅ **Admin: Approve Deposit (25 Points)**
+✅ **Admin: Approve Deposit**
 - Endpoint: `POST /deposits/approve`
 - ADMIN-protected endpoint to approve deposits
 - Atomic operation: updates transaction status AND wallet balance
 - Uses database transactions to ensure data integrity
 
-### Part 5 - Wallet Transactions (50 Points)
+### Wallet Transactions
 
-✅ **User: Transfer to Other User (25 Points)**
+✅ **User: Transfer to Other User**
 - Endpoint: `POST /wallet/transfer`
 - USER-protected endpoint for user-to-user transfers
 - Atomic operation: debits sender and credits receiver
 - Safe from concurrency issues (race conditions)
 - Prevents self-transfers and validates sufficient balance
 
-✅ **User: Pay with Balance (15 Points)**
+✅ **User: Pay with Balance**
 - Endpoint: `POST /wallet/pay`
 - USER-protected endpoint for payments
 - Atomic operation: debits user's balance
 - Validates sufficient balance before processing
 
-✅ **User: Check Balance (10 Points)**
+✅ **User: Check Balance**
 - Endpoint: `GET /wallet/balance`
 - USER-protected endpoint to check current balance
 - Endpoint: `GET /wallet/transactions`
@@ -266,7 +266,6 @@ sequenceDiagram
 - **Password Hashing:** bcryptjs
 - **Validation:** class-validator
 - **ORM:** TypeORM
-- **Testing:** Jest
 - **Containerization:** Docker & Docker Compose
 
 ## 📋 Prerequisites
@@ -339,27 +338,6 @@ sequenceDiagram
 - **Password:** `password`
 
 The application will start and automatically create the admin user.
-
-## 🧪 API Testing
-
-### Postman Collection
-A comprehensive Postman collection is provided for easy API testing:
-
-1. **Import Collection:** `E-Wallet_API.postman_collection.json`
-2. **Import Environment:** `E-Wallet_API.postman_environment.json`
-3. **Follow the guide:** `POSTMAN_TESTING_GUIDE.md`
-
-The collection includes:
-- Pre-configured requests for all endpoints
-- Environment variables for easy token management
-- Organized folders by functionality
-- Example request bodies and responses
-
-### Quick Test Setup
-1. Start the application: `npm run start:dev`
-2. Import the Postman collection and environment
-3. Run the "API Health Check" request
-4. Follow the testing workflow in the guide
 
 ## 📚 API Documentation
 
@@ -870,28 +848,6 @@ Authorization: Bearer <user-jwt-token>
 7. **CORS**: Cross-Origin Resource Sharing enabled
 8. **Atomic Transactions**: Database transactions ensure data integrity
 
-## 🧪 Testing
-
-### Unit Tests
-```bash
-npm run test
-```
-
-### Test Coverage
-```bash
-npm run test:cov
-```
-
-### E2E Tests
-```bash
-npm run test:e2e
-```
-
-### Linting
-```bash
-npm run lint
-```
-
 ## 🐳 Docker Commands
 
 ```bash
@@ -945,43 +901,6 @@ npm run docker:up
 npm run build
 npm run start:prod
 ```
-
-## 📖 Postman Testing Guide
-
-### Setup Instructions
-
-1. **Import Collection:**
-   - Open Postman
-   - Click "Import" button
-   - Select `E-Wallet_API.postman_collection.json`
-
-2. **Import Environment:**
-   - Click "Import" button again
-   - Select `E-Wallet_API.postman_environment.json`
-   - Select the "E-Wallet API Environment" from the environment dropdown
-
-### Testing Workflow
-
-1. **Health Check** → Verify API is running
-2. **User Registration** → Create test user
-3. **Authentication** → Login and get tokens
-4. **Deposit Flow** → Request and approve deposits
-5. **Wallet Operations** → Test transfers and payments
-6. **Session Management** → Test logout functionality
-
-### Environment Variables
-
-| Variable | Description | Example Value |
-|----------|-------------|---------------|
-| `base_url` | API base URL | `http://localhost:3001` |
-| `user_token` | JWT token for regular user | Auto-populated after login |
-| `admin_token` | JWT token for admin user | Auto-populated after login |
-| `deposit_id` | ID of a deposit request | Auto-populated after deposit request |
-| `user_email` | Regular user email | `user@example.com` |
-| `user_password` | Regular user password | `password123` |
-| `admin_email` | Admin user email | `admin@ewallet.com` |
-| `admin_password` | Admin user password | `admin123` |
-| `recipient_email` | Email for transfer recipient | `recipient@example.com` |
 
 ## 🐛 Troubleshooting
 
@@ -1125,31 +1044,6 @@ npm run start:prod
 }
 ```
 
-## 🎯 API Testing Scenarios
-
-### Scenario 1: Complete User Journey
-1. Register a new user
-2. Login and get token
-3. Request a deposit
-4. Login as admin and approve deposit
-5. Check balance
-6. Transfer money to another user
-7. Make a payment
-8. View transaction history
-
-### Scenario 2: Session Management
-1. Login from multiple devices (simulate by running login multiple times)
-2. Check active sessions
-3. Logout from current session
-4. Logout from all sessions
-5. Verify sessions are invalidated
-
-### Scenario 3: Error Handling
-1. Try to transfer more money than available balance
-2. Try to access admin endpoints with user token
-3. Try to access protected endpoints without token
-4. Try to approve non-existent deposit
-
 ## 📈 Performance & Scalability
 
 - **Atomic Transactions**: All financial operations use database transactions
@@ -1163,9 +1057,7 @@ npm run start:prod
 1. **Start Database**: `npm run docker:db`
 2. **Install Dependencies**: `npm install`
 3. **Start Development**: `npm run start:dev`
-4. **Run Tests**: `npm test`
-5. **Check Coverage**: `npm run test:cov`
-6. **Lint Code**: `npm run lint`
+4. **Lint Code**: `npm run lint`
 
 ## 📞 Support
 
@@ -1178,7 +1070,7 @@ For support and questions:
 
 ## 📄 License
 
-This project is part of a technical test implementation for an E-Wallet API system.
+This project is an E-Wallet API system built with NestJS, TypeScript, and MySQL.
 
 ---
 
